@@ -1,0 +1,167 @@
+/* Minimalist Task Card */
+
+.task {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.task:hover {
+  border-color: var(--text-tertiary);
+  box-shadow: var(--shadow-sm);
+}
+
+.task.editing {
+  cursor: default;
+  border-color: var(--accent);
+}
+
+.task-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.task-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  margin: 0;
+  flex: 1;
+  line-height: 1.4;
+}
+
+.task-delete {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-tertiary);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-delete:hover {
+  background: var(--error-bg);
+  color: var(--error);
+}
+
+.task-description {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-sm) 0;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.task-actions {
+  display: flex;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-sm);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.task-move {
+  flex: 1;
+  padding: var(--spacing-xs);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.task-move:hover:not(:disabled) {
+  background: var(--bg-hover);
+  color: var(--text);
+  border-color: var(--text-tertiary);
+}
+
+.task-move:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Edit mode */
+
+.task-edit-title,
+.task-edit-description {
+  width: 100%;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-sm);
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+  background: var(--bg);
+  color: var(--text);
+  margin-bottom: var(--spacing-sm);
+}
+
+.task-edit-title:focus,
+.task-edit-description:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.task-edit-description {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.task-edit-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: flex-end;
+}
+
+.task-edit-save,
+.task-edit-cancel {
+  padding: var(--spacing-xs) var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.task-edit-save {
+  background: var(--primary);
+  color: white;
+}
+
+.task-edit-save:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.task-edit-save:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.task-edit-cancel {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.task-edit-cancel:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}

@@ -1,0 +1,69 @@
+/* Minimalist App Layout */
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+.app-header {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-xl);
+}
+
+.header-content h1 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.header-content .subtitle {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 14px;
+}
+
+.app-main {
+  flex: 1;
+  overflow-x: auto;
+  background: var(--bg);
+}
+
+.app-footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: var(--spacing-md) var(--spacing-xl);
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.app-footer p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.app-footer strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+  }
+
+  .app-footer {
+    padding: var(--spacing-md);
+  }
+}

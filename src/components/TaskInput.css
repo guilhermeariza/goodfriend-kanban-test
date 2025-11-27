@@ -1,0 +1,119 @@
+/* Minimalist Task Input */
+
+.task-input-trigger {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.task-input-trigger:hover {
+  border-color: var(--text-tertiary);
+  background: var(--bg-hover);
+  color: var(--text);
+}
+
+.task-input-trigger svg {
+  flex-shrink: 0;
+}
+
+.task-input-form {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  animation: expand 0.2s ease;
+}
+
+@keyframes expand {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.task-input-title,
+.task-input-description {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-sm);
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.task-input-title:focus,
+.task-input-description:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.task-input-title::placeholder,
+.task-input-description::placeholder {
+  color: var(--text-tertiary);
+}
+
+.task-input-description {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.task-input-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: flex-end;
+  margin-top: var(--spacing-xs);
+}
+
+.task-input-submit,
+.task-input-cancel {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.task-input-submit {
+  background: var(--primary);
+  color: white;
+}
+
+.task-input-submit:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.task-input-submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.task-input-cancel {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.task-input-cancel:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}
