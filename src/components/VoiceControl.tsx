@@ -8,13 +8,9 @@ interface VoiceControlProps {
 }
 
 export default function VoiceControl({
-  isListening,
   setIsListening,
 }: VoiceControlProps) {
-  const [transcript, setTranscript] = useState('');
-  const [response, setResponse] = useState('');
   const [isConnected, setIsConnected] = useState(false);
-  const [goodfriend, setGoodfriend] = useState<GoodFriend | null>(null);
 
   useEffect(() => {
     const context = {
@@ -74,28 +70,21 @@ export default function VoiceControl({
     };
 
     try {
-      const gf = GoodFriend.init({
+      GoodFriend.init({
         serverUrl: 'http://localhost:3001',
         context: JSON.stringify(context, null, 2),
         uiOptions: {
-          renderDefaultUI: false,
-        },
-        onTranscription: (text: string) => {
-          setTranscript(text);
-        },
-        onResponse: (text: string) => {
-          setResponse(text);
+          renderDefaultUI: true,
         },
         onStreamEnd: () => {
           setIsListening(false);
         },
         onError: (error: string) => {
-          setResponse(`Error: ${error}`);
+          console.error('[Kanban] GoodFriend Error:', error);
           setIsListening(false);
         }
       });
 
-      setGoodfriend(gf);
       setIsConnected(true);
     } catch (error) {
       console.error('[Kanban] Failed to initialize:', error);
@@ -103,36 +92,9 @@ export default function VoiceControl({
     }
 
     return () => {
-      // Cleanup
+      // Cleanup if needed
     };
   }, [setIsListening]);
-
-  const startListening = async () => {
-    if (!goodfriend) {
-      setResponse('Error: Not initialized');
-      return;
-    }
-
-    try {
-      setIsListening(true);
-      setTranscript('Listening...');
-      setResponse('');
-      await goodfriend.startListening();
-    } catch (error) {
-      setResponse(`Error: ${error instanceof Error ? error.message : 'Failed'}`);
-      setIsListening(false);
-    }
-  };
-
-  const stopListening = () => {
-    if (!goodfriend) return;
-    try {
-      goodfriend.stopListening();
-      setIsListening(false);
-    } catch (error) {
-      console.error('[Kanban] Error stopping:', error);
-    }
-  };
 
   return (
     <div className="voice-control">
@@ -142,33 +104,6 @@ export default function VoiceControl({
           {isConnected ? 'Server ready' : 'Server offline'}
         </span>
       </div>
-
-      <button
-        onClick={isListening ? stopListening : startListening}
-        className={`voice-button ${isListening ? 'listening' : ''}`}
-        disabled={!isConnected}
-        title={!isConnected ? 'Server not connected' : 'Click to start voice assistant'}
-      >
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M8 1v14M4 8h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-        </svg>
-        {isListening ? 'Listening...' : 'Voice assistant'}
-      </button>
-
-      {transcript && (
-        <div className="voice-feedback">
-          <div className="feedback-item">
-            <strong>You:</strong>
-            <p>{transcript}</p>
-          </div>
-          {response && (
-            <div className="feedback-item">
-              <strong>Assistant:</strong>
-              <p>{response}</p>
-            </div>
-          )}
-        </div>
-      )}
     </div>
   );
 }
